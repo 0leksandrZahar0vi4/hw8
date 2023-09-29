@@ -7,7 +7,7 @@ users = [
     {"name": "Kim", "birthday": datetime(1982, 10, 4)},
     {"name": "Jan", "birthday": datetime(2023, 9, 27)},
 ]
-day = date(year=2023, month=9, day=22)
+day = date(year=2023, month=9, day=29)
 print(day.day)
 # t = int(input("Enter t: "))
 # print(date(year=2023, month=9, day=t))
@@ -17,7 +17,13 @@ days_until_next_monday = (7 - dd) % 7
 print(days_until_next_monday)
 days = day.day + days_until_next_monday
 print(date(year=2023, month=9, day=days))
-print(date(year=2023, month=9, day=days).weekday())
+if days == 31 and (
+    day.month == 4 or day.month == 6 or day.month == 9 or day.month == 11
+):
+    month = day.month + 1
+    print(date(year=2023, month=9, day=days))
+    # print(date(year=2023, month=9, day=days).weekday())
+
 # ddd = day + days
 # print(ddd)
 # if t == 5:

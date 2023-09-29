@@ -22,19 +22,23 @@ def get_bd(users):
         date_bd = bd.day, bd.month
         if (date_bd) in list(period):
             bd = bd.replace(year=start_day.year)
-            print(user["name"] + " імя іменинника")
+            print(
+                user["name"] + " імя іменинника",
+            )
             us = user["birthday"].strftime("%Y-%m-%d")
             use = datetime.strptime(us, "%Y-%m-%d").date().replace(year=start_day.year)
-            print(use, " дата народження іменинника")
-        dd = bd.weekday()
-        print(bd.day, " день тижня народження")
+            print(use, " дата народження іменинника")  # дата - тип
+            dd = bd.weekday()
+            print(bd.day, " день місяця народження")
         days_until_next_monday = (7 - dd) % 7
-        print(days_until_next_monday)
-        # if use.weekday() == 5 or use.weekday() == 6:
-        #     use_celeb = date(year=2023, month=9, day=days_until_next_monday).weekday()
-        #     use_celeb.strptime("%Y-%m-%d")
-        #     print(use_celeb)
-        # # print(type(use_celeb))
+        print(days_until_next_monday, " днів до понеділка")
+        dd = use.day + days_until_next_monday
+        if use.weekday() == 5 or use.weekday() == 6:
+            use_celeb = date(year=2023, month=9, day=dd)
+            # use_celeb = date(year=2023, month=9, day=dd).weekday()
+            use_celeb.strptime("%Y-%m-%d")
+            print(use_celeb)
+        # print(type(use_celeb))
         # use_day = use.strftime("%A %d %B %Y")  # день в рядковому типі даних
         # print(use_day)
 
