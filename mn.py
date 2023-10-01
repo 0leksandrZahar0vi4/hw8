@@ -49,6 +49,8 @@ def get_bd(users):
             print(res1)
 
 
+# hard work
+
 if __name__ == "__main__":
     users = [
         {"name": "Bill", "birthday": datetime(1990, 9, 30)},
