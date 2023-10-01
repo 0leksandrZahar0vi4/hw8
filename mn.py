@@ -49,8 +49,6 @@ def get_bd(users):
             print(res1)
 
 
-# hard work
-
 if __name__ == "__main__":
     users = [
         {"name": "Bill", "birthday": datetime(1990, 9, 30)},
@@ -59,4 +57,4 @@ if __name__ == "__main__":
         {"name": "Jan", "birthday": datetime(1992, 10, 7)},
     ]
     get_bd(users)
-    # print(get_period(date(2023, 12, 29), 7))
+    print(get_period(date(2023, 12, 29), 7))
