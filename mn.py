@@ -21,6 +21,7 @@ def get_bd(users):
         bd = bd.replace(year=start_day.year)
         date_bd = bd.day, bd.month
         # створюємо список іменників
+
         user_celeb = []
         if (date_bd) in list(period):
             bd = bd.replace(year=start_day.year)
