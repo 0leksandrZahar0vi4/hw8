@@ -1,66 +1,69 @@
-from datetime import datetime, timedelta, time
+from datetime import datetime, timedelta
 from datetime import date
+from collections import defaultdict
+
+
+def get_period(start_day: date, days: int):
+    res = {}
+    for _ in range(days + 1):
+        res[start_day.day, start_day.month] = start_day.year
+        start_day += timedelta(1)
+    return res
 
 
 def get_birthdays_per_week(users):
-    # Дата сьогодні
-    today = date.today()
-    print(today)
-    # Сьогоднійшній день тижня
-    current_day_of_week = today.weekday()
-    print(current_day_of_week)
-    # Кількість днів до понеділку
-    days_until_next_monday = (7 - current_day_of_week) % 7
-    # Дата наступного понеділка
-    time_difference = timedelta(days=days_until_next_monday)
-    print(time_difference.days)
-    next_monday = today + time_difference
-    print(next_monday)
-    # Дата наступної неділі
-    next_sunday = next_monday + timedelta(days=6)
-    print(next_sunday)
-    # Список іменників цієї неділі
-    users_to_greet = []
+    result = defaultdict(list)
+    start_day = date.today()
+    period = get_period(start_day, 7)
+    # end_period = start_day + timedelta(7)
+    # print(end_period)
+
+    for user in users:
+        bd: date = user["birthday"]
+        # bd = bd.replace(year=start_day.year)
+        date_bd = bd.day, bd.month
+        # створюємо список іменників
+
+        # user_celeb = []
+        if date_bd in period:
+            bd = bd.replace(year=period[date_bd])
+            print(user["name"] + " імя іменинника")
+            # us = user["birthday"].strftime("%Y-%m-%d")
+            # user_day = (
+            #     datetime.strptime(us, "%Y-%m-%d").date().replace(year=start_day.year)
+            # )
+            # print(user_day, " дата народження іменинника")  # дата - тип
+            # user_celeb.append(user_day)
+            # print(user_celeb)
+            # days_until_next_monday = timedelta((7 - user_day.weekday()) % 7)
+            # print(days_until_next_monday, " днів до понеділка")
+            # знаходимо, в кого припадає ДН на вихідні і переносимо на понеділок
+            # users = {}
+            bd_weekday = bd.weekday()
+            if bd_weekday in (5, 6):
+                weekday_name = "Monday"
+            else:
+                weekday_name = bd.strftime("%A")
+            result[weekday_name].append(user["name"])
+            # if user_day.weekday() == 5 or user_day.weekday() == 6:
+            #     use_celeb = days_until_next_monday + user_day
+            #     print(use_celeb)
+            #     users[user["name"]] = use_celeb
+            #     print(users)
+
+        # якщо передаємо пустий список
+        # res1 = {}
+        # if (date_bd) not in list(period):
+        #     print(res1)
+    return result
 
 
-#     print("Next Monday:", next_monday)
-#     print("Next Sunday:", next_sunday)
-
-#     for user in users:
-#         time_obj = time()
-#         dt_next_monday = datetime.combine(next_monday, time_obj)
-#         dt_next_sunday = datetime.combine(next_sunday, time_obj)
-#         print("Next dtMonday:", dt_next_monday)
-#         print("Next dtSunday:", dt_next_sunday)
-#         print(user["birthday"])
-#         if dt_next_monday <= user["birthday"].replace(year=2023) <= dt_next_sunday:
-#             users_to_greet.append(user["name"])
-#         print(users_to_greet)
-
-#     # Виводимо спискок іменників по дням тижня
-#     for i in range(7):
-#         day = next_monday + timedelta(days=i)
-#         day_name = day.strftime("%A")
-#         day_users = []
-#         for user in users:
-#             user_birth_day = user["birthday"].strftime("%Y-%m-%d")
-#             use = datetime.strptime(user_birth_day, "%Y-%m-%d").date()
-#             if use == day_name:
-#                 day_users.add(user["name"])
-#                 print(day_users)
-#         # print(f"{day_name}: {', '.join(day_users)}")
-#         # if day_users:
-#         #     print(f"{day_name}: {', '.join(day_users)}")
-
-
-# спсок всіх іменників
-# if __name__ == "__main__":
-users = [
-    {"name": "Bill", "birthday": datetime(1990, 10, 1)},
-    {"name": "Jill", "birthday": datetime(1985, 10, 3)},
-    {"name": "Kim", "birthday": datetime(1982, 10, 4)},
-    {"name": "Jan", "birthday": datetime(1992, 10, 3)},
-]
-
-get_birthdays_per_week(users)
-# print(1900, 10, 1)
+if __name__ == "__main__":
+    users = [
+        {"name": "Bill", "birthday": datetime(1990, 9, 30)},
+        {"name": "Jill", "birthday": datetime(2000, 10, 2)},
+        {"name": "Kim", "birthday": datetime(1982, 8, 30)},
+        {"name": "Jan", "birthday": datetime(1992, 10, 7)},
+    ]
+    get_bd(users)
+    print(get_period(date(2023, 12, 29), 7))

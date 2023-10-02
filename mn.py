@@ -31,19 +31,29 @@ def get_bd(users):
             user_day = (
                 datetime.strptime(us, "%Y-%m-%d").date().replace(year=start_day.year)
             )
-            print(user_day, " дата народження іменинника")  # дата - тип
+            # print(user_day, " дата народження іменинника")  # дата - тип
             user_celeb.append(user_day)
-            print(user_celeb)
-            days_until_next_monday = timedelta((7 - user_day.weekday()) % 7)
-            # print(days_until_next_monday, " днів до понеділка")
-            # знаходимо, в кого припадає ДН на вихідні і переносимо на понеділок
-            users = {}
-            if user_day.weekday() == 5 or user_day.weekday() == 6:
-                use_celeb = days_until_next_monday + user_day
-                print(use_celeb)
-                users[user["name"]] = use_celeb
-                print(users)
+        print(user_celeb)
+        days_until_next_monday = timedelta((7 - user_day.weekday()) % 7)
+        # print(days_until_next_monday, " днів до понеділка")
+        # знаходимо, в кого припадає ДН на вихідні і переносимо на понеділок
+        users = {}
+        if user_day.weekday() == 5 or user_day.weekday() == 6:
+            use_celeb = days_until_next_monday + user_day
+            # print(use_celeb)
+            users[user["name"]] = user_day
+        print(users)
+        # шукаємо тих, хто вже святкував ДН
+        userss_day = {}
 
+        if (start_day - user_day).days < 0:
+            users_day = user_day.replace(
+                year=start_day.year + 1,
+                month=user["birthday"].month,
+                day=user["birthday"].day,
+            )
+            userss_day[user["name"]] = users_day
+        print(userss_day)
         # якщо передаємо пустий список
         res1 = {}
         if (date_bd) not in list(period):
@@ -52,10 +62,10 @@ def get_bd(users):
 
 if __name__ == "__main__":
     users = [
-        {"name": "Bill", "birthday": datetime(1990, 9, 30)},
+        {"name": "Bill", "birthday": datetime(1990, 10, 3)},
         {"name": "Jill", "birthday": datetime(2000, 10, 2)},
-        {"name": "Kim", "birthday": datetime(1982, 8, 30)},
-        {"name": "Jan", "birthday": datetime(1992, 10, 7)},
+        {"name": "Kim", "birthday": datetime(1982, 10, 8)},
+        {"name": "Jan", "birthday": datetime(1992, 7, 7)},
     ]
     get_bd(users)
-    # print(get_period(date(2023, 12, 29), 7))
+    get_period(date(2023, 12, 29), 7)
