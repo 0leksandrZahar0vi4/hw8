@@ -1,8 +1,15 @@
+"""
+==============================================================================
+Цей файл є тестом домашнього завдання.
+Будь ласка, НЕ вносьте зміни до цього файлу без попереднього узгодження з ментором.
+==============================================================================
+"""
+
 import unittest
 from datetime import datetime, timedelta
 from unittest.mock import patch
 
-from mai import get_birthdays_per_week
+from main import get_birthdays_per_week
 
 RED = "\033[91m"
 GREEN = "\033[92m"
