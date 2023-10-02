@@ -25,6 +25,7 @@ def get_bd(users):
         user_celeb = []
         if (date_bd) in list(period):
             bd = bd.replace(year=start_day.year)
+            print(bd)
             print(user["name"] + " імя іменинника")
             us = user["birthday"].strftime("%Y-%m-%d")
             user_day = (
@@ -57,4 +58,4 @@ if __name__ == "__main__":
         {"name": "Jan", "birthday": datetime(1992, 10, 7)},
     ]
     get_bd(users)
-    print(get_period(date(2023, 12, 29), 7))
+    # print(get_period(date(2023, 12, 29), 7))
